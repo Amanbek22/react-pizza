@@ -3,8 +3,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import PizzaCard from "../../components/pizza-card/PizzaCard.jsx";
+import { useSelector } from "react-redux";
 
-export default function Main({ addToBasket, pizzas }) {
+export default function Main() {
+  const pizzas = useSelector( (state) => state.pizza.data);
 
   const settings = {
     dots: false,
@@ -41,7 +43,7 @@ export default function Main({ addToBasket, pizzas }) {
         <h1>ПИЦЦА</h1>
         <div className={"pizzaWrapper"}>
           {
-            pizzas?.map((item) => <PizzaCard key={item.id} {...item} addToBasket={addToBasket} />)
+            pizzas?.map((item) => <PizzaCard key={item.id} {...item} />)
           }
         </div>
       </div>

@@ -11,39 +11,37 @@ import Dashboard from './pages/dashboard/Dashboard.jsx';
 import CreatePizza from './pages/create-pizza/CreatePizza.jsx';
 import { Api } from './api/Api.js';
 import { pizzaApi } from './constants/api.js';
+import { useDispatch } from "react-redux"
 
 function App() {
-  const [basket, setBasket] = useState([]);
-  const [pizzas, setPizzas] = useState([]);
-
-  const addToBasket = (pizza) => {
-    setBasket([...basket,  pizza]);
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("basket")) || [];
-    setBasket(data);
-    
-    Api.get(pizzaApi) 
-    .then((res) => {
-      setPizzas(res.data)
-    })
+    // const data = JSON.parse(localStorage.getItem("basket")) || [];
+
+    Api.get(pizzaApi)
+      .then((res) => {
+        dispatch( {
+          type: "SET_PIZZAS",
+          data: res.data
+        })
+      })
   }, [])
 
-  useEffect(() => {
-    localStorage.setItem("basket", JSON.stringify(basket))
-  }, [basket])
+  // useEffect(() => {
+  //   localStorage.setItem("basket", JSON.stringify(basket))
+  // }, [basket])
 
   return (
     <div className="App">
       <BrowserRouter>
         <Header />
-        <Navbar basket={basket} />
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Main addToBasket={addToBasket} pizzas={pizzas} />} />
+          <Route path="/" element={<Main />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/dashboard" element={<Dashboard pizzas={pizzas} />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/create-pizza" element={<CreatePizza />} />
         </Routes>
         <Footer />

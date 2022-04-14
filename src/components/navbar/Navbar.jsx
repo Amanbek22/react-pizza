@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import css from "./Navbar.module.css";
 
-export default function Navbar({ basket }) {
+export default function Navbar() {
+
+  const basket = useSelector( (state) => state.basket.data)
+
   const [modal, setModal] = useState(false);
 
   const getAllPrice = () => {
@@ -22,7 +26,6 @@ export default function Navbar({ basket }) {
         <Link to="/about-us">О нас</Link>
 
         <button onClick={onModal}>Корзина | {basket.length}</button>
-
 
       </div>
       <div className={`${css.modal} ${modal ? css.activeModal : ""}`}>
