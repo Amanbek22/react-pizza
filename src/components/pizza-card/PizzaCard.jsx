@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux"
+import { SET_NEW_PIZZA } from "../../redux/actionTypes.js";
 
 
 export default function PizzaCard({ title, name, description, img, id, isAdmin, ...props }) { 
@@ -6,9 +7,9 @@ export default function PizzaCard({ title, name, description, img, id, isAdmin, 
 
   const onBasket = () => {
     dispatch( {
-      type: "SET_NEW_PIZZA",
+      type: SET_NEW_PIZZA,
       data: {title, name, description, img, id, ...props }
-    } )
+    });
   }
   return (
     <div className="card" style={{width: "18rem"}}>

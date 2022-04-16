@@ -36,11 +36,11 @@ export default function Navbar() {
             src="https://cdn-icons-png.flaticon.com/512/458/458594.png" 
             alt="Close" 
           />
-          <h2>{basket.length} товара на {getAllPrice()} сом</h2>
+          <h2>{basket?.length} товара на {getAllPrice()} сом</h2>
 
           <div>
             {
-              basket.map((item) => <div>{item.name}</div>)
+              basket?.map((item) => <div>{item.name}</div>)
             }
           </div>
         </div>

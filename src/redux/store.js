@@ -1,37 +1,20 @@
 import { combineReducers, createStore } from 'redux';
+import { pizzaReducer } from './pizzaReducer.js';
+import { basketReducer } from './basketReducer.js';
 
-
-
-const pizzaReducer = (state = { 
-  data: [],
-  pending: true,
-}, action) => {
-  switch(action.type) {
-    case "SET_PIZZAS":
-      return { ...state, data: action.data}
-    default:
-      return state
-  }
-}
-
-const initialState = {
-  data: []
-}
-const basketReducer = (state = initialState, action) => {
-  switch(action.type) {
-    case "SET_NEW_PIZZA":
-      return { ...state, data: [...state.data, action.data] };
-    default:
-      return state
-  }
-}
 
 const rootReducer = combineReducers({
   pizza: pizzaReducer,
   basket: basketReducer,
-})
+});
 
 export const store = createStore(rootReducer);
+
+store.subscribe(() => {
+  const state = store.getState();
+  console.log(state);
+  localStorage.setItem("basket", JSON.stringify(state.basket.data))
+})
 
 
 window.store = store;
