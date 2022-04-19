@@ -11,22 +11,27 @@ import Dashboard from './pages/dashboard/Dashboard.jsx';
 import CreatePizza from './pages/create-pizza/CreatePizza.jsx';
 import { Api } from './api/Api.js';
 import { pizzaApi } from './constants/api.js';
-import { useDispatch } from "react-redux"
-import { SET_PIZZAS } from './redux/actionTypes.js';
+import { useDispatch, useSelector } from "react-redux"
+import { ACsetPending, ACsetPizza } from './redux/actionCreators.js';
+
 
 function App() {
+  const pending = useSelector( (state) => state.pizza.pending )
   const dispatch = useDispatch();
 
   useEffect(() => {
     Api.get(pizzaApi)
-      .then((res) => {
-        dispatch( {
-          type: SET_PIZZAS,
-          data: res.data
-        })
+      .finally(() => {
+        dispatch( ACsetPending() )
       })
-  }, [])
+      .then((res) => {
+        dispatch( ACsetPizza(res.data) )
+      })
+  }, [dispatch])
 
+  if(pending) {
+    return <h1>Loading...</h1>
+  }
   return (
     <div className="App">
       <BrowserRouter>

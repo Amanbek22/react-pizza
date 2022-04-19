@@ -40,7 +40,7 @@ export default function Navbar() {
 
           <div>
             {
-              basket?.map((item) => <div>{item.name}</div>)
+              basket?.map((item, index) => <div key={index}>{item.name}</div>)
             }
           </div>
         </div>
