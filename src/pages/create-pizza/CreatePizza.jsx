@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { baseUrl, pizzaApi } from "../../constants/api.js";
 import css from "./CreatePizza.module.css"
-import { Api } from "../../api/Api.js";
+import Api from "../../api/Api.js";
 
 export default function CreatePizza() {
   const [name, setName] = useState("");
@@ -28,9 +28,13 @@ export default function CreatePizza() {
     //     navigate("/dashboard")
     //   })
 
-    Api.post(pizzaApi, {name, price, description})
+    // Api.post(pizzaApi, {name, price, description})
+    Api.createPizza({name, price, description})
       .finally(() => {
         navigate("/dashboard")
+      })
+      .then((res) => {
+        console.log(res);
       })
   }
 
