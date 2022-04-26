@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { baseUrl, pizzaApi } from "../../constants/api.js";
 import css from "./CreatePizza.module.css"
 import Api from "../../api/Api.js";
+import { useDispatch } from "react-redux";
+import { setPizzaAC } from "../../redux/actionCreators.js";
 
 export default function CreatePizza() {
   const [name, setName] = useState("");
@@ -10,6 +11,8 @@ export default function CreatePizza() {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
+
+  const dispatch = useDispatch()
 
   const navigate = useNavigate();
 
@@ -34,7 +37,7 @@ export default function CreatePizza() {
         navigate("/dashboard")
       })
       .then((res) => {
-        console.log(res);
+        dispatch( setPizzaAC(res.data) )
       })
   }
 

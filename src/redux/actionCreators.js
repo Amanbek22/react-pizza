@@ -1,9 +1,14 @@
 import Api from "../api/Api.js"
-import { SET_NEW_PIZZA, SET_PENDING, SET_PIZZAS } from "./actionTypes.js"
+import { SET_NEW_PIZZA, SET_PENDING, SET_PIZZA, SET_PIZZAS, AUTH_SUCCESS } from "./actionTypes.js"
 
-export const ACsetPizza = (data) => ({
+export const ACsetPizzas = (data) => ({
   type: SET_PIZZAS,
   data: data
+})
+
+export const setPizzaAC = (data) => ({
+  type: SET_PIZZA,
+  payload: data
 })
 
 export const ACsetPending = () => ({
@@ -16,13 +21,17 @@ export const ACsetNewPizza = (data) => ({
   data: data
 })
 
+export const setAuthAC = (data) => ({
+  type: AUTH_SUCCESS,
+  payload: data
+})
 
 export const getPizzaAC = () => {
   return async (dispatch) => {
     const res = await Api.getPizzas()
     dispatch(ACsetPending())
     if (res.status === 200) {
-      dispatch(ACsetPizza(res.data))
+      dispatch(ACsetPizzas(res.data))
     }
     // .finally(() => {
     //   dispatch( ACsetPending() )
