@@ -21,8 +21,8 @@ export default function CreatePizza() {
     const formData = new FormData();
     formData.append("name", name)
     formData.append("price", price)
-    formData.append("description", description)
-    formData.append("img", image);
+    formData.append("info", description)
+    formData.append("image", image);
     // fetch(baseUrl + pizzaApi, {
     //   method: "POST",
     //   body: formData
@@ -32,7 +32,7 @@ export default function CreatePizza() {
     //   })
 
     // Api.post(pizzaApi, {name, price, description})
-    Api.createPizza({name, price, description})
+    Api.createPizza(formData)
       .finally(() => {
         navigate("/dashboard")
       })

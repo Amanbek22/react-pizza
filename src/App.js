@@ -23,6 +23,16 @@ const PrivateRoute = ( { Component } ) => {
   }
 }
 
+const PublicRoute = ( { Component } ) => {
+  const auth = useSelector( (state) => state.auth.data?.token);
+
+  if(auth) {
+    return <Navigate to="/dashboard" />
+  } else {
+    return <Component />
+  }
+}
+
 
 
 function App() {
@@ -44,7 +54,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/about-us" element={<About />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin" element={<PublicRoute Component={Admin} />} />
           <Route path="/dashboard" element={<PrivateRoute Component={Dashboard} />} />
           <Route path="/create-pizza" element={<PrivateRoute Component={CreatePizza} />} />
         </Routes>

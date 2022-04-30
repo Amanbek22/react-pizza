@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Api from "../../api/Api.js";
 import css from "./Admin.module.css";
-import { useDispatch } from 'react-redux';
-import { setAuthAC } from './../../redux/actionCreators';
+import { useDispatch } from "react-redux";
+import { setAuthAC, authAC } from "./../../redux/actionCreators";
 
 export default function Admin() {
   const [login, setLogin] = useState("");
@@ -13,35 +13,31 @@ export default function Admin() {
 
   const submit = (e) => {
     e.preventDefault();
-    // TODO: add login logic
-    Api.auth({
-      login: login,
-      password: password
-    })
-      .then((res) => {
-        console.log(res.data);
-        if(res.data?.token) {
-          dispatch( setAuthAC(res.data) )
-        }
+
+    dispatch(
+      authAC({
+        login,
+        password,
       })
-  }
+    );
+  };
 
   const handleChange = (e) => {
     setLogin(e.target.value);
-  }
+  };
 
   return (
     <div className="container mt-5">
       <form onSubmit={submit} className={css.formWrapper}>
-        <input 
+        <input
           required
-          type="text" 
+          type="text"
           placeholder="Login"
           value={login}
           onChange={handleChange}
         />
-        <input 
-          required 
+        <input
+          required
           type={passwordType ? "text" : "password"}
           placeholder="Password"
           value={password}
@@ -51,5 +47,5 @@ export default function Admin() {
         <button>Enter</button>
       </form>
     </div>
-  )
+  );
 }
