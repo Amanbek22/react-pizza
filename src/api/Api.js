@@ -19,4 +19,5 @@ export default {
   getPizzas: () => api.get("getall/pizza"),
   createPizza: (data) => api.post("add/pizza", data),
   auth: (data) => api.post("admin", data),
+  deletePizza: (id) => api.delete("delete/pizza/" + id)
 }
