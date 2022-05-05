@@ -1,4 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import { useDispatch } from "react-redux"
+import Api from "../../api/Api.js";
 import { ACsetNewPizza } from "../../redux/actionCreators.js";
 
 
@@ -9,6 +12,13 @@ export default function PizzaCard({ title, name, info, file, id, isAdmin, ...pro
 
   const onBasket = () => {
     dispatch( ACsetNewPizza({title, name, info, file, id, ...props }) );
+  }
+
+  const onDelete = () => {
+    Api.deletePizza(id)
+      .then(() => {
+        window.location.reload()
+      })
   }
   return (
     <div className="card" style={{width: "18rem"}}>
@@ -25,7 +35,7 @@ export default function PizzaCard({ title, name, info, file, id, isAdmin, ...pro
           <p className="card-text">{info}</p>
           {
             isAdmin 
-              ? <a href="#" className="btn btn-primary">Удалить</a>
+              ? <a onClick={onDelete} href="#" className="btn btn-primary">Удалить</a>
               : <a href="#" onClick={onBasket} className="btn btn-primary">Выбрать</a>
           }          
         </div>
