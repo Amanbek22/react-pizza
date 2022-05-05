@@ -31,7 +31,7 @@ export const getPizzaAC = () => {
     const res = await Api.getPizzas()
     dispatch(ACsetPending())
     if (res.status === 200) {
-      dispatch(ACsetPizzas(res.data))
+      dispatch(ACsetPizzas(res.data.data.data))
     }
     // .finally(() => {
     //   dispatch( ACsetPending() )

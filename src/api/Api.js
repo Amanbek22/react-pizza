@@ -16,7 +16,7 @@ api.interceptors.request.use((config) => {
 })
 
 export default {
-  getPizzas: () => http.get(pizzaApi),
+  getPizzas: () => api.get("getall/pizza"),
   createPizza: (data) => api.post("add/pizza", data),
   auth: (data) => api.post("admin", data),
 }
